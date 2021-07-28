@@ -9,7 +9,7 @@ const cardInfo = [
     zip: '4040',
     country: 'Russia',
     address: '135, Shannon str, Capital-city',
-    gifts: [ 'Gift One', 'Gift Two' ]
+    gifts: ['Gift One', 'Gift Two'],
   },
   {
     id: Math.random(),
@@ -21,8 +21,8 @@ const cardInfo = [
     zip: '567Rt',
     country: 'Italy',
     address: '47, Gerbes str, Small-city',
-    gifts: []
-  }
+    gifts: [],
+  },
 ];
 
 export default cardInfo;
