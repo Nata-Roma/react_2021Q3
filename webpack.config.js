@@ -35,9 +35,9 @@ const config = {
       ],
     }),
     new ESLintWebpackPlugin({
-      failOnError : true,
-  }),
-  
+      failOnError: true,
+    }),
+
     // Add your plugins here
     // Learn more about plugins from https://webpack.js.org/configuration/plugins/
   ],
