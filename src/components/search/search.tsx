@@ -2,14 +2,21 @@ import React from 'react';
 import searchImg from '../../assets/search.png';
 import './search.css';
 
-export const Search = () => {
+const Search = (props: { onSearch: (searchKey: string) => void }) => {
   return (
     <div className="search_container">
       <div
         className="search_icon"
         style={{ backgroundImage: `url(${searchImg})` }}
-      ></div>
-      <input className="search-input" type="text" placeholder="Search..." />
+      />
+      <input
+        className="search-input"
+        type="text"
+        placeholder="Search..."
+        onInput={(e: React.FormEvent<HTMLInputElement>) =>
+          props.onSearch(e.currentTarget.value)
+        }
+      />
     </div>
   );
 };
