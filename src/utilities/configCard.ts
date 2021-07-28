@@ -1,5 +1,6 @@
 const cardInfo = [
   {
+    id: Math.random(),
     name: 'Alex',
     surname: 'Smith',
     gender: 'male',
@@ -11,6 +12,7 @@ const cardInfo = [
     gifts: [ 'Gift One', 'Gift Two' ]
   },
   {
+    id: Math.random(),
     name: 'Ellen',
     surname: 'Perce',
     gender: 'female',

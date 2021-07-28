@@ -1,5 +1,5 @@
 import React from 'react';
-import ICardInfo from '../utilities/interfaces';
+import ICardInfo from '../../utilities/interfaces';
 import './card.css';
 
 const Card = (props: ICardInfo) => {

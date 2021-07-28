@@ -1,9 +1,15 @@
 import React from 'react';
 import './app.css';
+import './styles.css';
+import Card from './components/card/card';
+import cardInfo from './utilities/configCard';
 
 const App = () => {
   return (
-    <div>
+    <div className="cards_wrapper">
+      {cardInfo.map((card => (
+        <Card {...card} key={card.id} />
+      )))}
     </div>
   );
 };

@@ -1,22 +1,8 @@
-* {
-  box-sizing: border-box;
-}
+.cards_wrapper {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
 
-html,
-body,
-input {
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: Helvetica, Arial,sans-serif;
-}
-
-input,
-button,
-select {
-  outline: 0;
-  border: 0;
-  padding-inline-start: 0px;
 }
