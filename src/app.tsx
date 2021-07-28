@@ -7,7 +7,7 @@ import cardInfo from './utilities/configCard';
 const App = () => {
   return (
     <div className="cards_wrapper">
-      {cardInfo.map((card => (
+      {!cardInfo.length ? ( <div className="cards_noInfo">No card info</div>) : cardInfo.map((card => (
         <Card {...card} key={card.id} />
       )))}
     </div>
