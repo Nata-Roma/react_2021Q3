@@ -1,22 +1,17 @@
-* {
-  box-sizing: border-box;
+.cards_wrapper {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
 }
 
-html,
-body,
-input {
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: Helvetica, Arial,sans-serif;
-}
-
-input,
-button,
-select {
-  outline: 0;
-  border: 0;
-  padding-inline-start: 0px;
+.cards_noInfo {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: 600;
 }

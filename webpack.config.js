@@ -2,7 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require('copy-webpack-plugin');
-const ESLintWebpackPlugin = require('eslint-webpack-plugin');
+const ESLintPlugin  = require('eslint-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV == "production";
 
@@ -34,8 +34,16 @@ const config = {
         },
       ],
     }),
-    new ESLintWebpackPlugin({
+    new ESLintPlugin ({
+      context: './src',
+      extensions: [".tsx", ".ts", ".js"],
+      fix: false,
       failOnError: true,
+      // context: __dirname,
+      // eslintPath: `${__dirname}/node_modules/.bin/eslint`,
+      // extensions: ["ts", "tsx", ".js"],
+      // files: "./src/**",
+      // exclude: "node_modules",
     }),
 
     // Add your plugins here
