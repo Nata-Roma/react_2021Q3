@@ -96,3 +96,23 @@ export interface IFormDate {
   formValues: IFormData;
   errors?: IErrors;
 }
+
+export interface IPost {
+  source: {
+    id: string;
+    name: string;
+  };
+  author: string;
+  title: string;
+  description: string;
+  url: string;
+  urlToImage: string;
+  publishedAt: string;
+  content: string;
+}
+
+export interface IApiResponse {
+  status: string;
+  totalResults: number;
+  articles: Array<IPost>;
+}

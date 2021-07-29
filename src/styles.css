@@ -20,3 +20,12 @@ select {
   border: 0;
   padding-inline-start: 0px;
 }
+
+a {
+  text-decoration: none;
+}
+
+a,
+button {
+  cursor: pointer;
+}
