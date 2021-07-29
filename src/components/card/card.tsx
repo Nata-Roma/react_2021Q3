@@ -55,11 +55,12 @@ const Card = (props: ICardInfo): JSX.Element => {
 
         <div className="card_block card_column">
           <div className="card_delivery_title">Gifts:&nbsp;</div>
-          {gifts.map((gift) => (
-            <div className="card_full_width" key={gift}>
-              {gift}
-            </div>
-          ))}
+          {gifts &&
+            gifts.map((gift) => (
+              <div className="card_full_width" key={gift}>
+                {gift}
+              </div>
+            ))}
         </div>
       </div>
     </div>
