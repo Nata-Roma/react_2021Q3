@@ -2,26 +2,29 @@ import React from 'react';
 import ICardInfo from '../../utilities/interfaces';
 import './card.css';
 
-const Card = (props: ICardInfo) => {
+const Card = (props: ICardInfo): JSX.Element => {
+  const { name, surname, gender, bDay, date, zip, country, address, gifts } =
+    props;
+
   return (
     <div className="card_container">
       <div className="card_block card_column">
         <div className="card_full_width">
           <span className="card_category">Name:&nbsp;</span>
-          {props.name}
+          {name}
         </div>
         <div className="card_full_width">
           <span className="card_category">Surname:&nbsp;</span>
-          {props.surname}
+          {surname}
         </div>
         <div className="card_block card_border">
           <div className="card_half_width">
             <span className="card_category">Gender:&nbsp;</span>
-            {props.gender}
+            {gender}
           </div>
           <div className="card_half_width">
             <span className="card_category">B-day:&nbsp;</span>
-            {props.bDay}
+            {bDay}
           </div>
         </div>
       </div>
@@ -32,27 +35,27 @@ const Card = (props: ICardInfo) => {
           <div className="card_block">
             <div className="card_half_width">
               <span className="card_category">Date:&nbsp;</span>
-              {props.date}
+              {date}
             </div>
             <div className="card_half_width">
               <span className="card_category">ZIP:&nbsp;</span>
-              {props.zip}
+              {zip}
             </div>
           </div>
 
           <div className="card_full_width">
             <span className="card_category">Country:&nbsp;</span>
-            {props.country}
+            {country}
           </div>
           <div className="card_full_width">
             <span className="card_category">Address:&nbsp;</span>
-            {props.address}
+            {address}
           </div>
         </div>
 
         <div className="card_block card_column">
           <div className="card_delivery_title">Gifts:&nbsp;</div>
-          {props.gifts.map((gift) => (
+          {gifts.map((gift) => (
             <div className="card_full_width" key={gift}>
               {gift}
             </div>

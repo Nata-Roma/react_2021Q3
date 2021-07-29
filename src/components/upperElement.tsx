@@ -17,7 +17,7 @@ const UpperElement = (): JSX.Element => {
 
   if (search.length) {
     const searchArr = cardInfo.filter((card) =>
-      card.name.toLowerCase().includes(search.toLowerCase())
+      card.name.toLowerCase().includes(search.toLowerCase()),
     );
     cardInfoView = searchArr.map((card) => <Card {...card} key={card.id} />);
   } else {

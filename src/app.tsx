@@ -1,10 +1,8 @@
-import React, { ReactElement, useState } from 'react';
+import React from 'react';
 import './app.css';
 import './styles.css';
 import UpperElement from './components/upperElement';
 
-const App = (): JSX.Element => {
-  return <UpperElement />;
-};
+const App = (): JSX.Element => <UpperElement />;
 
 export default App;
