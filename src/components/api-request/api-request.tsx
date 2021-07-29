@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
-import { IApiResponse, IPost } from '../../utilities/interfaces';
-import Article from '../card/article';
+import { IApiResponse } from '../../utilities/interfaces';
+import Button from '../button/button';
+import Search from '../search/search';
+import './api-request.css';
 
 const apiKey = 'apiKey=9d864b6a2d944129b18b6a405c831cb0';
 
@@ -34,52 +36,64 @@ const initArr = [
   },
 ];
 
-const ApiRequest = (): JSX.Element => {
-  const [apiData, setApiData] = useState<IApiResponse>(null);
+const ApiRequest = (props: {
+  requestApi: (responseData: IApiResponse) => void;
+}): JSX.Element => {
   const [isSubmit, setSubmit] = useState(false);
+  const [isDisable, setDisable] = useState(true);
+  const [searchParam, setSearchParam] = useState('');
 
   const basicUrl = 'https://newsapi.org/v2/everything';
 
+  const onSearchHandler = (search: string) => {
+    if (search) {
+      setSearchParam(search);
+      setDisable(false);
+    } else {
+      setSearchParam(search);
+      setDisable(true);
+    }
+  };
   const onClickHandler = () => {
+    console.log(searchParam);
+
     setSubmit(true);
   };
 
   useEffect(() => {
     if (isSubmit) {
+      let url = ``;
+      if (searchParam) {
+        url = `q=${searchParam}`;
+      }
       const getData = async () => {
-        const res = await fetch(
-          `${basicUrl}?page=2&q=apple&from=2021-07-29&to=2021-07-29&sortBy=popularity&${apiKey}`,
-        );
-        const responseData = await res.json();
-        setApiData(responseData);
+        const res = await fetch(`${basicUrl}?${url}&${apiKey}`);
+        console.log(res);
+        if (res.status === 200) {
+          const responseData = await res.json();
+          props.requestApi(responseData);
+          console.log(responseData);
+        }
       };
       getData();
       setSubmit(false);
+      setDisable(true);
     }
   }, [isSubmit]);
-
-  const articles = !apiData ? (
-    <div>NO Content</div>
-  ) : (
-    apiData &&
-    apiData.articles.map((article: IPost) => {
-      const contentIndex = article.content.indexOf('[');
-      let articleNew = { ...article };
-      if (contentIndex) {
-        const content = article.content.slice(0, contentIndex);
-        articleNew = { ...articleNew, content };
-      }
-      return <Article {...articleNew} key={Math.random()} />;
-    })
-  );
 
   return (
     <>
       <p>API REQUEST</p>
-      <button type="button" onClick={onClickHandler}>
-        GER API REQUEST
-      </button>
-      {articles}
+      <div className="search_block">
+        <Search onSearch={onSearchHandler} value={searchParam} />
+        <Button
+          styleName="form_button"
+          styleNameDisabled="form_button_disabled"
+          onClick={onClickHandler}
+          disabled={isDisable}
+          content="Send"
+        />
+      </div>
     </>
   );
 };
