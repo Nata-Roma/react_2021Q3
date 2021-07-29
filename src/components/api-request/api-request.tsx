@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import configSorting, { initRequestParam } from '../../utilities/config';
 
-import { IApiResponse } from '../../utilities/interfaces';
+import { IApiResponse, IRequestParam } from '../../utilities/interfaces';
 import Button from '../button/button';
 import Search from '../search/search';
+import SortingBlock from '../sorting/sorting';
 import './api-request.css';
 
 const apiKey = 'apiKey=9d864b6a2d944129b18b6a405c831cb0';
@@ -41,21 +43,32 @@ const ApiRequest = (props: {
 }): JSX.Element => {
   const [isSubmit, setSubmit] = useState(false);
   const [isDisable, setDisable] = useState(true);
-  const [searchParam, setSearchParam] = useState('');
+  const [requestParam, setRequestParam] =
+    useState<IRequestParam>(initRequestParam);
 
   const basicUrl = 'https://newsapi.org/v2/everything';
 
-  const onSearchHandler = (search: string) => {
+  const onSearchHandler = (search: string): void => {
+    setRequestParam((prevState: IRequestParam) => ({
+      ...prevState,
+      q: search,
+    }));
     if (search) {
-      setSearchParam(search);
       setDisable(false);
     } else {
-      setSearchParam(search);
       setDisable(true);
     }
   };
+
+  const onSortingHandler = (sort: string) => {
+    setRequestParam((prevState: IRequestParam) => ({
+      ...prevState,
+      sortBy: sort,
+    }));
+  };
+
   const onClickHandler = () => {
-    console.log(searchParam);
+    console.log(requestParam);
 
     setSubmit(true);
   };
@@ -63,9 +76,17 @@ const ApiRequest = (props: {
   useEffect(() => {
     if (isSubmit) {
       let url = ``;
-      if (searchParam) {
-        url = `q=${searchParam}`;
+      for (let key in requestParam) {
+        if (requestParam[key]) {
+          if (key === 'q') {
+            url = `q=${encodeURIComponent(requestParam.q)}`;
+          } else {
+            url = `${url}&${key}=${requestParam[key]}`;
+          }
+        }
       }
+      console.log(`${basicUrl}?${url}&${apiKey}`);
+
       const getData = async () => {
         const res = await fetch(`${basicUrl}?${url}&${apiKey}`);
         console.log(res);
@@ -77,7 +98,7 @@ const ApiRequest = (props: {
       };
       getData();
       setSubmit(false);
-      setDisable(true);
+      // setDisable(true);
     }
   }, [isSubmit]);
 
@@ -85,7 +106,10 @@ const ApiRequest = (props: {
     <>
       <p>API REQUEST</p>
       <div className="search_block">
-        <Search onSearch={onSearchHandler} value={searchParam} />
+        <Search
+          onSearch={onSearchHandler}
+          value={requestParam ? requestParam.q : ''}
+        />
         <Button
           styleName="form_button"
           styleNameDisabled="form_button_disabled"
@@ -94,6 +118,11 @@ const ApiRequest = (props: {
           content="Send"
         />
       </div>
+      <SortingBlock
+        config={configSorting}
+        changeSort={onSortingHandler}
+        checked={requestParam.sortBy}
+      />
     </>
   );
 };

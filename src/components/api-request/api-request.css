@@ -5,7 +5,7 @@
   align-items: center;
   padding: 10px;
   font-size: 16px;
-  border-radius: 5px;
+  border-radius: 8px;
   text-transform: uppercase;
   background-color: #6e8beb;
   color: #eee;
@@ -36,4 +36,38 @@
   justify-content: center;
   align-items: center;
   margin: 0 auto;
+}
+
+.sorting_wrapper {
+  min-width: 200px;
+  max-width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  margin: 10px;
+}
+
+.sorting_radio_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sorting_radio_block {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px;
+}
+
+.sorting_radio {
+  width: 20px;
+  padding: 5px;
+  margin-right: 5px;
+}
+
+.sorting_label {
+  font-size: 16px;
+  width: 100%;
 }

@@ -116,3 +116,32 @@ export interface IApiResponse {
   totalResults: number;
   articles: Array<IPost>;
 }
+
+export interface IRadioBlock {
+  name: string;
+  label: string;
+  param: string;
+  checked: string;
+  changeSort: (param: string) => void;
+}
+
+export interface IRequestParam {
+  q: string;
+  sortBy: string;
+}
+
+export interface ISortingConfig {
+  label: string;
+  name: string;
+  choice: {
+    name: string;
+    label: string;
+    param: string;
+  }[];
+}
+
+export interface ISortingProps {
+  config: ISortingConfig;
+  changeSort: (sort: string) => void;
+  checked: string;
+}

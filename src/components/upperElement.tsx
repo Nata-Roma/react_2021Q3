@@ -3,6 +3,7 @@ import '../app.css';
 import { IApiResponse, IPost } from '../utilities/interfaces';
 import ApiRequest from './api-request/api-request';
 import Article from './card/article';
+import PaginationPage from './pagination/pagination-page';
 
 const UpperElement = (): JSX.Element => {
   const [apiData, setApiData] = useState<IApiResponse>(null);
@@ -29,7 +30,8 @@ const UpperElement = (): JSX.Element => {
   return (
     <>
       <ApiRequest requestApi={onApiResponse} />
-      {articles}
+      <PaginationPage articles={articles} />
+      
     </>
   );
 };
