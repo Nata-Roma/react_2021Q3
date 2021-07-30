@@ -45,6 +45,7 @@
   align-items: center;
   justify-content: space-between;
   flex-direction: column;
+  padding: 10px;
   margin: 10px;
 }
 
@@ -70,4 +71,10 @@
 .sorting_label {
   font-size: 16px;
   width: 100%;
+}
+
+.api_controls {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
 }

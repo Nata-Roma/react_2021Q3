@@ -1,16 +1,29 @@
-import React from 'react';
+import React, {useState } from 'react';
 import { IPost } from '../../utilities/interfaces';
 import './article.css';
+import noImage from '../../assets/no_image.png';
 
 const Article = (props: IPost): JSX.Element => {
   const { author, title, description, url, urlToImage, content } = props;
+  const [isFailed, setFailed] = useState(false);
+
+  let image = (
+    <img
+      className="article_image"
+      src={urlToImage}
+      onError={() => setFailed(true)}
+      alt=""
+    />
+  );
+  let imageDefault = <img className="article_image" src={noImage} alt="" />;
 
   return (
     <div className="article_wrapper">
       <div className="article_title">{title}</div>
       <div className="article_author">{`By: ${author}`}</div>
       <div className="article_img_desc">
-        <img className="article_image" src={urlToImage} alt="" />
+        {!isFailed && image}
+        {isFailed && imageDefault}
         <div className="article_text">
           <div className="article_description">{description}</div>
           <div className="article_content">{content}</div>

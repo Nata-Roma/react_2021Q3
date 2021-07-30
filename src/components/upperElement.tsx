@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
 import '../app.css';
-import { IApiResponse, IPost } from '../utilities/interfaces';
+import { IApiResponse, IPages, IPost } from '../utilities/interfaces';
 import ApiRequest from './api-request/api-request';
-import Article from './card/article';
+import Article from './article/article';
 import PaginationPage from './pagination/pagination-page';
 
 const UpperElement = (): JSX.Element => {
   const [apiData, setApiData] = useState<IApiResponse>(null);
+  const [pages, setPages] = useState<IPages>({
+    pages: '1',
+    pageSize: '1',
+    page: '1',
+  });
+  const [requestPage, setRequestPage] = useState('1');
 
-  const onApiResponse = (responseData: IApiResponse): void => {
+  const onApiResponse = (responseData: IApiResponse, pages: IPages): void => {
     setApiData(responseData);
+    setPages(pages);
   };
 
   const articles = !apiData ? (
@@ -27,11 +34,19 @@ const UpperElement = (): JSX.Element => {
     })
   );
 
+  const onPaginationClick = (page: string) => {
+    setRequestPage(page);
+    console.log(page);
+  };
+
   return (
     <>
-      <ApiRequest requestApi={onApiResponse} />
-      <PaginationPage articles={articles} />
-      
+      <ApiRequest requestApi={onApiResponse} requestPage={requestPage} />
+      <PaginationPage
+        articles={articles}
+        onPaginationClick={onPaginationClick}
+        pages={pages}
+      />
     </>
   );
 };

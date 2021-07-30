@@ -25,4 +25,22 @@ export default configSorting;
 export const initRequestParam = {
   q: '',
   sortBy: 'publishedAt',
+  pages: '1',
+  pageSize: '1',
+  page: '1',
 };
+
+export const configPageInput = [
+  {
+    label: 'Pages Total',
+    name: 'pages',
+  },
+  {
+    label: 'Articles per Page',
+    name: 'pageSize',
+  },
+  {
+    label: 'Current Page',
+    name: 'page',
+  },
+];

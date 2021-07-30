@@ -1,100 +1,9 @@
-interface ICardInfo {
-  id: number;
-  name: string;
-  surname: string;
-  gender: string;
-  bDay: string;
-  date: string;
-  zip: string;
-  country: string;
-  address: string;
-  gifts?: Array<string>;
-}
-
-export default ICardInfo;
-
-export interface IInputData {
-  name: string;
-  type: string;
-  styleName: string;
-  label: string;
-  id?: string;
-  max?: string;
-  min?: string;
-}
-
-export interface IFormData {
-  name: string;
-  surname: string;
-  gender: string;
-  bDay: string;
-  date: string;
-  zip: string;
-  country: string;
-  address: string;
-  agree: boolean;
-}
-
-export interface IErrors {
-  name: string;
-  surname: string;
-  gender: string;
-  bDay: string;
-  date: string;
-  agree: string;
-}
-
-export interface IInput {
-  type: string;
-  name: string;
-  styleName: string;
-  onInput: (inputData: string | boolean) => void;
-  id?: string;
-  error?: string;
-  min?: string;
-  max?: string;
-  checked?: boolean;
-  inputValue?: string;
-}
-
 export interface IButton {
   styleName: string;
   styleNameDisabled: string;
-  content: string;
-  onClick: () => void;
+  onButtonClick: (param?: string) => void;
   disabled: boolean;
-}
-
-export interface IFormGender {
-  formGender: Array<IInputData>;
-  onInputData: (inputData: string, inputName: string) => void;
-  errors?: IErrors;
-  checked: string;
-}
-
-export interface IDataSelect {
-  label: string;
-  name: string;
-  id: string;
-  styleName: string;
-  options: {
-    value: string;
-    name: string;
-  }[];
-}
-
-export interface IFormSelect {
-  formSelect: IDataSelect;
-  onChangeData: (inputData: string, inputName: string) => void;
-  formValues: IFormData;
-  errors?: IErrors;
-}
-
-export interface IFormDate {
-  formDate: IInputData;
-  onInputData: (inputData: string, inputName: string) => void;
-  formValues: IFormData;
-  errors?: IErrors;
+  content: string;
 }
 
 export interface IPost {
@@ -128,6 +37,9 @@ export interface IRadioBlock {
 export interface IRequestParam {
   q: string;
   sortBy: string;
+  pages: string;
+  pageSize: string;
+  page: string;
 }
 
 export interface ISortingConfig {
@@ -144,4 +56,32 @@ export interface ISortingProps {
   config: ISortingConfig;
   changeSort: (sort: string) => void;
   checked: string;
+}
+
+interface IInputPageConfig {
+  label: string;
+  name: string;
+}
+
+export interface IPageInput {
+  config: IInputPageConfig;
+  onInputChoice: (value: string, name: string) => void;
+  value: number;
+}
+
+export interface IPages {
+  pages: string;
+  pageSize: string;
+  page: string;
+}
+export interface IPageBlock {
+  config: Array<IInputPageConfig>;
+  onInputChoice: (value: string, name: string) => void;
+  pages: IRequestParam;
+}
+
+export interface IPaginationPage {
+  articles: JSX.Element | Array<JSX.Element>;
+  pages: IPages
+  onPaginationClick: (page: string) => void
 }
