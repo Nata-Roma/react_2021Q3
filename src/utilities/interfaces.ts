@@ -1,6 +1,6 @@
 export interface IButton {
   styleName: string;
-  styleNameDisabled: string;
+  styleNameDisabled?: string;
   onButtonClick: (param?: string) => void;
   disabled: boolean;
   content: string;
@@ -18,6 +18,11 @@ export interface IPost {
   urlToImage: string;
   publishedAt: string;
   content: string;
+}
+
+export interface IPaginationButtonState {
+  Left: boolean;
+  Right: boolean;
 }
 
 export interface IApiResponse {
@@ -82,6 +87,24 @@ export interface IPageBlock {
 
 export interface IPaginationPage {
   articles: JSX.Element | Array<JSX.Element>;
-  pages: IPages
-  onPaginationClick: (page: string) => void
+  pages: IPages;
+  onButtonClick: (page: string) => void;
+  btnDisabled: IPaginationButtonState;
+  isLoading: boolean;
+  isError: boolean;
+  onErrorClick: (param: string) => void;
+}
+
+export interface IApiRequest {
+  requestApi: (responseData: IApiResponse, pages: IPages) => void;
+  requestPage: string;
+  onLoadingApi: (loading: boolean) => void;
+  onErrorApi: (errorApi: boolean) => void;
+}
+
+export interface IPopup {
+  message: Array<string>;
+  onButtonClick?: (param: string) => void;
+  isDisabled: boolean;
+  isShowButton: boolean;
 }

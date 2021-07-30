@@ -4,8 +4,8 @@ import configSorting, {
   initRequestParam,
 } from '../../utilities/config';
 import {
+  IApiRequest,
   IApiResponse,
-  IPages,
   IRequestParam,
 } from '../../utilities/interfaces';
 import Button from '../button/button';
@@ -16,10 +16,9 @@ import './api-request.css';
 
 const apiKey = 'apiKey=9d864b6a2d944129b18b6a405c831cb0';
 
-const ApiRequest = (props: {
-  requestApi: (responseData: IApiResponse, pages: IPages) => void;
-  requestPage: string;
-}): JSX.Element => {
+const ApiRequest = (props: IApiRequest): JSX.Element => {
+  const { requestApi, requestPage, onLoadingApi, onErrorApi } = props;
+
   const [isSubmit, setSubmit] = useState(false);
   const [isDisable, setDisable] = useState(true);
   const [requestParam, setRequestParam] =
@@ -53,12 +52,12 @@ const ApiRequest = (props: {
   };
 
   const onInputChoice = (value: string, name: string) => {
-    console.log(`value: ${value}, name: ${name}`);
     setRequestParam((prevState) => ({ ...prevState, [name]: value }));
   };
 
   useEffect(() => {
     if (isSubmit) {
+      onLoadingApi(true);
       let url = '';
       for (const key in requestParam) {
         if (requestParam[key]) {
@@ -69,12 +68,10 @@ const ApiRequest = (props: {
           }
         }
       }
-      console.log(`${basicUrl}?${url}&${apiKey}`);
-
       const getData = async () => {
         const res = await fetch(`${basicUrl}?${url}&${apiKey}`);
-        if (res.status === 200) {
-          const responseData: IApiResponse = await res.json();
+        const responseData: IApiResponse = await res.json();
+        if (responseData.status === 'ok') {
           const pages = {
             pages: Math.ceil(
               responseData.totalResults / +requestParam.pageSize,
@@ -82,14 +79,17 @@ const ApiRequest = (props: {
             pageSize: requestParam.pageSize,
             page: requestParam.page,
           };
-          props.requestApi(responseData, pages);
+          requestApi(responseData, pages);
           setRequestParam((prevState) => ({
             ...prevState,
             pages: Math.ceil(
               responseData.totalResults / +requestParam.pageSize,
             ).toString(),
           }));
+        } else if (responseData.status === 'error') {
+          onErrorApi(true);
         }
+        onLoadingApi(false);
       };
       getData();
       setSubmit(false);
@@ -97,9 +97,9 @@ const ApiRequest = (props: {
   }, [isSubmit]);
 
   useEffect(() => {
-    setRequestParam((prevState) => ({ ...prevState, page: props.requestPage }));
+    setRequestParam((prevState) => ({ ...prevState, page: requestPage }));
     if (!isDisable) setSubmit(true);
-  }, [props.requestPage]);
+  }, [requestPage]);
 
   return (
     <>

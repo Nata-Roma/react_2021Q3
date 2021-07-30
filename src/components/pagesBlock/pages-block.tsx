@@ -3,7 +3,7 @@ import { IPageBlock } from '../../utilities/interfaces';
 import PagesInput from './pages-input';
 import './pages_block.css';
 
-const PagesBlock = (props: IPageBlock) => {
+const PagesBlock = (props: IPageBlock): JSX.Element => {
   const { config, onInputChoice, pages } = props;
   return (
     <div className="pages_wrapper">

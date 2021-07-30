@@ -1,11 +1,11 @@
 import React from 'react';
 import { IPageInput } from '../../utilities/interfaces';
 
-const PagesInput = (props: IPageInput) => {
+const PagesInput = (props: IPageInput): JSX.Element => {
   const { config, onInputChoice, value } = props;
   return (
     <div className="pages_input_wrapper">
-      <label htmlFor="" className="pages_input_label">
+      <label htmlFor="config.name" className="pages_input_label">
         {config.label}
       </label>
       <input

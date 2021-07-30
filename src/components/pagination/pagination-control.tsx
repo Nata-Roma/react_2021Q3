@@ -7,7 +7,7 @@ export interface IPaginationControl {
   onButtonClick: (param: string) => void;
   btnDisabled: { Left: boolean; Right: boolean };
 }
-const PaginationControl = (props: IPaginationControl) => {
+const PaginationControl = (props: IPaginationControl): JSX.Element => {
   const { pages, onButtonClick, btnDisabled } = props;
 
   return (
@@ -19,7 +19,9 @@ const PaginationControl = (props: IPaginationControl) => {
         onButtonClick={onButtonClick}
         disabled={btnDisabled.Left}
       />
-      <div className="pagination_page">{`Page: ${pages.page} (${pages.pages})`}</div>
+      <div className="pagination_page">
+        {`Page: ${pages.page} (${pages.pages})`}
+      </div>
       <Button
         styleName="pagination_button"
         styleNameDisabled="pagination_button_disabled"
