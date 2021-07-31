@@ -50,6 +50,7 @@ const UpperElement = (): JSX.Element => {
   ): void => {
     if (responseData.totalResults > 0) {
       setApiData(responseData);
+      setError(false);
     } else {
       setApiData(null);
     }

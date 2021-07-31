@@ -1,5 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import configSorting, {
+  apiKey,
+  basicUrl,
   configPageInput,
   initRequestParam,
 } from '../../utilities/config';
@@ -14,8 +16,6 @@ import Search from '../search/search';
 import SortingBlock from '../sorting/sorting';
 import './api-request.css';
 
-const apiKey = 'apiKey=9d864b6a2d944129b18b6a405c831cb0';
-
 const ApiRequest = (props: IApiRequest): JSX.Element => {
   const { requestApi, requestPage, onLoadingApi, onErrorApi } = props;
 
@@ -23,10 +23,6 @@ const ApiRequest = (props: IApiRequest): JSX.Element => {
   const [isDisable, setDisable] = useState(true);
   const [requestParam, setRequestParam] =
     useState<IRequestParam>(initRequestParam);
-
-  const imgRef = useRef(null);
-
-  const basicUrl = 'https://newsapi.org/v2/everything';
 
   const onSearchHandler = (search: string): void => {
     setRequestParam((prevState: IRequestParam) => ({
@@ -103,8 +99,7 @@ const ApiRequest = (props: IApiRequest): JSX.Element => {
 
   return (
     <>
-      <img className="article_image" ref={imgRef} alt="" />
-      <p>API REQUEST</p>
+      <div className="api_title">newsapi.org - Search worldwide news</div>
       <div className="search_block">
         <Search
           onSearch={onSearchHandler}

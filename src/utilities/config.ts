@@ -44,3 +44,6 @@ export const configPageInput = [
     name: 'page',
   },
 ];
+
+export const apiKey = 'apiKey=9d864b6a2d944129b18b6a405c831cb0';
+export const basicUrl = 'https://newsapi.org/v2/everything';

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IPost } from '../../utilities/interfaces';
 import './article.css';
 import noImage from '../../assets/no_image.png';
@@ -6,6 +6,12 @@ import noImage from '../../assets/no_image.png';
 const Article = (props: IPost): JSX.Element => {
   const { author, title, description, url, urlToImage, content } = props;
   const [isFailed, setFailed] = useState(false);
+
+  useEffect(() => {
+    if (!urlToImage) {
+      setFailed(true);
+    }
+  }, []);
 
   const image = (
     <img

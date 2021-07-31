@@ -1,11 +1,9 @@
 import React from 'react';
 import searchImg from '../../assets/search.png';
+import { ISearch } from '../../utilities/interfaces';
 import './search.css';
 
-const Search = (props: {
-  onSearch: (searchKey: string) => void;
-  value: string;
-}): JSX.Element => {
+const Search = (props: ISearch): JSX.Element => {
   const { onSearch, value } = props;
 
   return (

@@ -78,3 +78,10 @@
   justify-content: flex-start;
   align-items: flex-start;
 }
+
+.api_title {
+  font-size: 24px;
+  padding: 5px 10px;
+  color: #6e8beb;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}

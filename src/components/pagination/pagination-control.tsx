@@ -1,12 +1,7 @@
 import React from 'react';
-import { IPages } from '../../utilities/interfaces';
+import { IPaginationControl } from '../../utilities/interfaces';
 import Button from '../button/button';
 
-export interface IPaginationControl {
-  pages: IPages;
-  onButtonClick: (param: string) => void;
-  btnDisabled: { Left: boolean; Right: boolean };
-}
 const PaginationControl = (props: IPaginationControl): JSX.Element => {
   const { pages, onButtonClick, btnDisabled } = props;
 

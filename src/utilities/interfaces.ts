@@ -108,3 +108,14 @@ export interface IPopup {
   isDisabled: boolean;
   isShowButton: boolean;
 }
+
+export interface IPaginationControl {
+  pages: IPages;
+  onButtonClick: (param: string) => void;
+  btnDisabled: { Left: boolean; Right: boolean };
+}
+
+export interface ISearch {
+  onSearch: (searchKey: string) => void;
+  value: string;
+}
