@@ -8,13 +8,21 @@
 }
 
 .header_link {
-  color: #fff;
+  color: #ccc;
   font-size: 16px;
   padding: 0 10px;
   margin: 0 30px;
   border-bottom: 1px solid transparent;
+  transition-property: color;
+  transition-duration: .2s;
+  transition-timing-function: ease;
+}
+
+.header_link:hover {
+  color: #fff;
 }
 
 .active {
   border-bottom: 1px solid #fff;
+  color: #fff;
 }
