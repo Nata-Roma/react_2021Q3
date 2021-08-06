@@ -8,7 +8,6 @@ import './pagination.css';
 const PaginationPage = (props: IPaginationPage): JSX.Element => {
   const {
     articles,
-    pages,
     onButtonClick,
     btnDisabled,
     isLoading,

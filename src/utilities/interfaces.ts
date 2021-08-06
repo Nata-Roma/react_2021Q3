@@ -87,7 +87,6 @@ export interface IPageBlock {
 
 export interface IPaginationPage {
   articles: JSX.Element | Array<JSX.Element>;
-  pages: IPages;
   onButtonClick: (page: string) => void;
   btnDisabled: IPaginationButtonState;
   isLoading: boolean;
@@ -115,4 +114,9 @@ export interface IPaginationControl {
 export interface ISearch {
   onSearch: (searchKey: string) => void;
   value: string;
+}
+
+export interface IArticle {
+  showMore: boolean;
+  post: IPost;
 }

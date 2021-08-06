@@ -1,8 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import {
-  IPaginationButtonState,
-  IPost,
-} from '../../utilities/interfaces';
+import { IPaginationButtonState, IPost } from '../../utilities/interfaces';
 import Popup from '../../utilities/popup/popup';
 import ApiRequest from '../api-request/api-request';
 import Article from '../article/article';
@@ -69,7 +66,9 @@ const HomePage = (): JSX.Element => {
         const content = article.content.slice(0, contentIndex);
         articleNew = { ...articleNew, content };
       }
-      return <Article {...articleNew} key={Math.random()} />;
+      return (
+        <Article post={articleNew} showMore={false} key={article.source.id} />
+      );
     })
   );
 
@@ -112,7 +111,6 @@ const HomePage = (): JSX.Element => {
       <PaginationPage
         articles={articles}
         onButtonClick={onButtonClick}
-        pages={apiDataState.pages}
         btnDisabled={btnDisabled}
         isLoading={isLoading}
         isError={isError}

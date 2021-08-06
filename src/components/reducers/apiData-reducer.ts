@@ -1,7 +1,7 @@
 import { IApiResponse, IPages } from '../../utilities/interfaces';
 
 export interface IApiDataState {
-  state: Array<IApiResponse>;
+  state: IApiResponse;
   pages: IPages;
 }
 

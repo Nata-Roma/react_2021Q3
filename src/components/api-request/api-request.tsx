@@ -77,9 +77,16 @@ const ApiRequest = (props: IApiRequest): JSX.Element => {
             pageSize: requestParam.pageSize,
             page: requestParam.page,
           };
+          const arr = responseData.articles.map((article) => {
+            const arrItem = article;
+            arrItem.source.id = (Math.random() * 10).toString();
+            return arrItem;
+          });
+          const newApiResponse = responseData;
+          newApiResponse.articles = arr;
           dispatch({
             type: 'GET_API_DATA',
-            payload: { state: responseData, pages },
+            payload: { state: newApiResponse, pages },
           });
           setRequestParam((prevState) => ({
             ...prevState,
