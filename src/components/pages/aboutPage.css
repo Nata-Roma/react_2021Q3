@@ -5,6 +5,9 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  opacity: 0;
+  transition-property: opacity;
+  transition-duration: 1s;
 }
 
 .about_message {
@@ -18,3 +21,8 @@
   left: 0;
   right: 0;
 }
+
+.about_enter {
+  opacity: 1;
+}
+

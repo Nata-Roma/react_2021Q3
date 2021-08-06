@@ -1,6 +1,5 @@
 import React, { createContext, useReducer } from 'react';
 import { Route, Switch, useLocation } from 'react-router-dom';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import Header from './header/header';
 import AboutPage from './pages/aboutPage';
 import DetailPage from './pages/detailPage';
@@ -26,26 +25,7 @@ const UpperElement = (): JSX.Element => {
   return (
     <NewsContext.Provider value={{ apiDataState, dispatch }}>
       <Header />
-      <TransitionGroup>
-        <CSSTransition key={location.key} classNames="fade" timeout={300}>
-          <Switch location={location}>
-            <Route exact path="/">
-              <HomePage />
-            </Route>
-            <Route exact path="/about">
-              <AboutPage />
-            </Route>
-            <Route path="/details/:id">
-              <DetailPage />
-            </Route>
-            <Route>
-              <Page404 />
-            </Route>
-          </Switch>
-        </CSSTransition>
-      </TransitionGroup>
-
-      {/* <Switch>
+      <Switch>
         <Route exact path="/">
           <HomePage />
         </Route>
@@ -58,7 +38,7 @@ const UpperElement = (): JSX.Element => {
         <Route>
           <Page404 />
         </Route>
-      </Switch> */}
+      </Switch>
     </NewsContext.Provider>
   );
 };

@@ -4,3 +4,11 @@
   left: 0;
   right: 0;
 }
+
+.home_wrapper {
+  opacity: 0;
+}
+
+.home_enter {
+  opacity: 1;
+}

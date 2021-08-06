@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { IPaginationButtonState, IPost } from '../../utilities/interfaces';
 import Popup from '../../utilities/popup/popup';
 import ApiRequest from '../api-request/api-request';
@@ -15,6 +15,7 @@ const HomePage = (): JSX.Element => {
   });
   const [isLoading, setLoading] = useState(false);
   const [isError, setError] = useState(false);
+  const homeRef = useRef(null);
 
   useEffect(() => {
     if (!isLoading) {
@@ -105,8 +106,14 @@ const HomePage = (): JSX.Element => {
     setLoading(false);
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      homeRef.current.classList.add('home_enter');
+    }, 300);
+  }, []);
+
   return (
-    <div className="page">
+    <div className="home_wrapper" ref={homeRef}>
       <ApiRequest onLoadingApi={onLoadingApi} onErrorApi={onErrorApi} />
       <PaginationPage
         articles={articles}

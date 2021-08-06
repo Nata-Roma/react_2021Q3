@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import './aboutPage.css';
 
-const AboutPage = (): JSX.Element => (
-  <div className="about_wrapper page">
-    <div className="about_message">About Page</div>
-  </div>
-);
+const AboutPage = (): JSX.Element => {
+  const aboutRef = useRef(null);
+
+  useEffect(() => {
+    setTimeout(() => {
+      aboutRef.current.classList.add('about_enter');
+    }, 300);
+  }, []);
+
+  return (
+    <div className="about_wrapper" ref={aboutRef}>
+      <div className="about_message">About Page</div>
+    </div>
+  );
+};
 
 export default AboutPage;
