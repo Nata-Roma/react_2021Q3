@@ -96,8 +96,6 @@ export interface IPaginationPage {
 }
 
 export interface IApiRequest {
-  requestApi: (responseData: IApiResponse, pages: IPages) => void;
-  requestPage: string;
   onLoadingApi: (loading: boolean) => void;
   onErrorApi: (errorApi: boolean) => void;
 }
@@ -110,7 +108,6 @@ export interface IPopup {
 }
 
 export interface IPaginationControl {
-  pages: IPages;
   onButtonClick: (param: string) => void;
   btnDisabled: { Left: boolean; Right: boolean };
 }

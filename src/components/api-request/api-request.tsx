@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import configSorting, {
   apiKey,
   basicUrl,
@@ -14,10 +14,12 @@ import Button from '../button/button';
 import PagesBlock from '../pagesBlock/pages-block';
 import Search from '../search/search';
 import SortingBlock from '../sorting/sorting';
+import { NewsContext } from '../upperElement';
 import './api-request.css';
 
 const ApiRequest = (props: IApiRequest): JSX.Element => {
-  const { requestApi, requestPage, onLoadingApi, onErrorApi } = props;
+  const { onLoadingApi, onErrorApi } = props;
+  const { apiDataState, dispatch } = useContext(NewsContext);
 
   const [isSubmit, setSubmit] = useState(false);
   const [isDisable, setDisable] = useState(true);
@@ -75,7 +77,10 @@ const ApiRequest = (props: IApiRequest): JSX.Element => {
             pageSize: requestParam.pageSize,
             page: requestParam.page,
           };
-          requestApi(responseData, pages);
+          dispatch({
+            type: 'GET_API_DATA',
+            payload: { state: responseData, pages },
+          });
           setRequestParam((prevState) => ({
             ...prevState,
             pages: Math.ceil(
@@ -93,9 +98,12 @@ const ApiRequest = (props: IApiRequest): JSX.Element => {
   }, [isSubmit]);
 
   useEffect(() => {
-    setRequestParam((prevState) => ({ ...prevState, page: requestPage }));
+    setRequestParam((prevState) => ({
+      ...prevState,
+      page: apiDataState.pages.page,
+    }));
     if (!isDisable) setSubmit(true);
-  }, [requestPage]);
+  }, [apiDataState.pages.page]);
 
   return (
     <>

@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { IPaginationControl } from '../../utilities/interfaces';
 import Button from '../button/button';
+import { NewsContext } from '../upperElement';
 
 const PaginationControl = (props: IPaginationControl): JSX.Element => {
-  const { pages, onButtonClick, btnDisabled } = props;
+  const { onButtonClick, btnDisabled } = props;
+  const { apiDataState } = useContext(NewsContext);
 
   return (
     <div className="pagination_control">
@@ -15,7 +17,7 @@ const PaginationControl = (props: IPaginationControl): JSX.Element => {
         disabled={btnDisabled.Left}
       />
       <div className="pagination_page">
-        {`Page: ${pages.page} (${pages.pages})`}
+        {`Page: ${apiDataState.pages.page} (${apiDataState.pages.pages})`}
       </div>
       <Button
         styleName="pagination_button"
