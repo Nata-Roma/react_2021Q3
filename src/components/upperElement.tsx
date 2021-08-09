@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from 'react';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Header from './header/header';
 import AboutPage from './pages/aboutPage';
 import DetailPage from './pages/detailPage';
@@ -19,7 +19,6 @@ const initReducerState = {
 };
 
 const UpperElement = (): JSX.Element => {
-  const location = useLocation();
   const [apiDataState, dispatch] = useReducer(ApiDataReducer, initReducerState);
 
   return (
@@ -32,6 +31,7 @@ const UpperElement = (): JSX.Element => {
         <Route exact path="/about">
           <AboutPage />
         </Route>
+        {/* eslint max-len: ["error", { "ignoreStrings": true }] */}
         <Route path="/details/:id/:title/:author/:description/:url/:urlToImage/:content/:publishedAt/:name">
           <DetailPage />
         </Route>

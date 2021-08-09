@@ -16,7 +16,16 @@ const onMoreClick = (url: string) => {
 
 const Article = (props: IArticle): JSX.Element => {
   const { post, showMore } = props;
-  const { author, title, description, url, urlToImage, content, source, publishedAt } = post;
+  const {
+    author,
+    title,
+    description,
+    url,
+    urlToImage,
+    content,
+    source,
+    publishedAt,
+  } = post;
   const [isFailed, setFailed] = useState(false);
 
   useEffect(() => {
@@ -34,7 +43,13 @@ const Article = (props: IArticle): JSX.Element => {
     />
   );
   const imageDefault = <img className="article_image" src={noImage} alt="" />;
-  const pageAddress = `/details/${source.id}/${title}/${author}/${description}/${encodeURIComponent(url)}/${encodeURIComponent(urlToImage)}/${content}/${publishedAt}/${source.name}`;
+  const pageAddress = `/details/${
+    source.id
+  }/${title}/${author}/${description}/${encodeURIComponent(
+    url,
+  )}/${encodeURIComponent(urlToImage)}/${content}/${publishedAt}/${
+    source.name
+  }`;
 
   return (
     <Link className="article_wrapper" to={pageAddress}>
