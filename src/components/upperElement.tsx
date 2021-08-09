@@ -32,7 +32,7 @@ const UpperElement = (): JSX.Element => {
         <Route exact path="/about">
           <AboutPage />
         </Route>
-        <Route path="/details/:id">
+        <Route path="/details/:id/:title/:author/:description/:url/:urlToImage/:content/:publishedAt/:name">
           <DetailPage />
         </Route>
         <Route>

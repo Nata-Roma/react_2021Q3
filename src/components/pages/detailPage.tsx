@@ -6,15 +6,47 @@ import { IApiDataState } from '../reducers/apiData-reducer';
 import { NewsContext } from '../upperElement';
 import './detailPage.css';
 
+export interface IDetailPageParams {
+  id: string;
+  title: string;
+  author: string;
+  description: string;
+  url: string;
+  urlToImage: string;
+  content: string;
+  publishedAt: string;
+  name: string;
+}
+
 const DetailPage = (): JSX.Element => {
-  const { id } = useParams<{ id: string }>();
+  const { id, title, author, description, url, urlToImage, content, publishedAt, name 
+  } = useParams<IDetailPageParams>();
   const { apiDataState } = useContext(NewsContext);
-  let pageData: IPost;
-  if((apiDataState as IApiDataState).state !== null) {
-    pageData = (apiDataState as IApiDataState).state.articles.find(
-      (article) => article.source.id === id,
-    );
-  }
+  let pageData: IPost
+   = {
+    source: {
+      id,
+      name
+    },
+    title,
+    author,
+    description,
+    url: decodeURIComponent(url),
+    urlToImage: decodeURIComponent(urlToImage),
+    content,
+    publishedAt
+  };
+
+  console.log(`id: ${id}, title: ${title}`);
+  console.log(author);
+  console.log(description);
+  console.log(decodeURIComponent(url));
+  console.log(decodeURIComponent(urlToImage));
+  console.log(content);
+  console.log(publishedAt);
+  console.log(name);
+  
+  
   
   const article = !pageData ? (
     <div className="detail_wrapper">
