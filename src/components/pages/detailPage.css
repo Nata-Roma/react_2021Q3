@@ -11,3 +11,11 @@
   font-size: 40px;
   margin-bottom: 40px;
 }
+
+.detail_outer {
+  opacity: 0;
+}
+
+.detail_enter {
+  opacity: 1;
+}

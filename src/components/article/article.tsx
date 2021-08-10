@@ -45,10 +45,10 @@ const Article = (props: IArticle): JSX.Element => {
   const imageDefault = <img className="article_image" src={noImage} alt="" />;
   const pageAddress = `/details/${
     source.id
-  }/${title}/${author}/${description}/${encodeURIComponent(
+  }/${encodeURIComponent(title)}/${encodeURIComponent(author)}/${encodeURIComponent(description)}/${encodeURIComponent(
     url,
-  )}/${encodeURIComponent(urlToImage)}/${content}/${publishedAt}/${
-    source.name
+  )}/${encodeURIComponent(urlToImage)}/${encodeURIComponent(content)}/${encodeURIComponent(publishedAt)}/${
+    encodeURIComponent(source.name)
   }`;
 
   return (

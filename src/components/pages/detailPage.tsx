@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { IPost } from '../../utilities/interfaces';
 import Article from '../article/article';
@@ -32,25 +32,37 @@ const DetailPage = (): JSX.Element => {
   const pageData: IPost = {
     source: {
       id,
-      name,
+      name: decodeURIComponent(name),
     },
-    title,
-    author,
-    description,
+    title: decodeURIComponent(title),
+    author: decodeURIComponent(author),
+    description: decodeURIComponent(description),
     url: decodeURIComponent(url),
     urlToImage: decodeURIComponent(urlToImage),
-    content,
-    publishedAt,
+    content: decodeURIComponent(content),
+    publishedAt: decodeURIComponent(publishedAt),
   };
+
+  const detailsRef = useRef(null);
 
   const article = !pageData ? (
     <div className="detail_wrapper">
       <div className="detail_message">No Data</div>
     </div>
   ) : (
-    <Article post={pageData} showMore />
+      <Article post={pageData} showMore />
   );
-  return <div>{article}</div>;
+
+  useEffect(() => {
+    setTimeout(() => {
+      if(detailsRef.current) {
+        detailsRef.current.classList.add('detail_enter');
+      }
+      
+    }, 300);
+  }, []);
+
+  return <div className="detail_outer" ref={detailsRef}>{article}</div>;
 };
 
 export default DetailPage;
