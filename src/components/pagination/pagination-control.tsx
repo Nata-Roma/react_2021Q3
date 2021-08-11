@@ -1,11 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { IPaginationControl } from '../../utilities/interfaces';
 import Button from '../button/button';
-import { NewsContext } from '../upperElement';
+import { AppState } from '../store/appState';
+// import { NewsContext } from '../upperElement';
 
 const PaginationControl = (props: IPaginationControl): JSX.Element => {
   const { onButtonClick, btnDisabled } = props;
-  const { apiDataState } = useContext(NewsContext);
+  // const { apiDataState } = useContext(NewsContext);
+  const apiDataState = useSelector((state: AppState) => state.apiData);
 
   return (
     <div className="pagination_control">

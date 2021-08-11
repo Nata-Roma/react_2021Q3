@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import configSorting, {
   apiKey,
   basicUrl,
@@ -14,12 +15,16 @@ import Button from '../button/button';
 import PagesBlock from '../pagesBlock/pages-block';
 import Search from '../search/search';
 import SortingBlock from '../sorting/sorting';
-import { NewsContext } from '../upperElement';
+import { actionTypes } from '../store/apiData-reducer';
+// import { NewsContext } from '../upperElement';
+import { AppState } from '../store/appState';
 import './api-request.css';
 
 const ApiRequest = (props: IApiRequest): JSX.Element => {
   const { onLoadingApi, onErrorApi } = props;
-  const { apiDataState, dispatch } = useContext(NewsContext);
+  // const { apiDataState, dispatch } = useContext(NewsContext);
+  const apiDataState = useSelector((state: AppState) => state.apiData);
+  const dispatch = useDispatch();
 
   const [isSubmit, setSubmit] = useState(false);
   const [isDisable, setDisable] = useState(true);
@@ -85,7 +90,7 @@ const ApiRequest = (props: IApiRequest): JSX.Element => {
           const newApiResponse = responseData;
           newApiResponse.articles = arr;
           dispatch({
-            type: 'GET_API_DATA',
+            type: actionTypes.GET_API_DATA,
             payload: { state: newApiResponse, pages },
           });
           setRequestParam((prevState) => ({

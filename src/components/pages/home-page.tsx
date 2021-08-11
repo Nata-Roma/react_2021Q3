@@ -1,14 +1,19 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { IPaginationButtonState, IPost } from '../../utilities/interfaces';
 import Popup from '../../utilities/popup/popup';
 import ApiRequest from '../api-request/api-request';
 import Article from '../article/article';
 import PaginationPage from '../pagination/pagination-page';
-import { NewsContext } from '../upperElement';
+import { actionTypes } from '../store/apiData-reducer';
+import { AppState } from '../store/appState';
+// import { NewsContext } from '../upperElement';
 import './homePage.css';
 
 const HomePage = (): JSX.Element => {
-  const { apiDataState, dispatch } = useContext(NewsContext);
+  // const { apiDataState, dispatch } = useContext(NewsContext);
+  const dispatch = useDispatch();
+  const apiDataState = useSelector((state: AppState) => state.apiData);
   const [btnDisabled, setBtnDisabled] = useState<IPaginationButtonState>({
     Left: true,
     Right: true,
@@ -84,7 +89,7 @@ const HomePage = (): JSX.Element => {
         setBtnDisabled((btnState) => ({ ...btnState, Left: true }));
       }
       dispatch({
-        type: 'SET_NEW_PAGE',
+        type: actionTypes.SET_NEW_PAGE,
         btnPage: (+apiDataState.pages.page - 1).toString(),
       });
     } else if (direction === 'Right') {
@@ -95,7 +100,7 @@ const HomePage = (): JSX.Element => {
         setBtnDisabled((btnState) => ({ ...btnState, Right: false }));
       }
       dispatch({
-        type: 'SET_NEW_PAGE',
+        type: actionTypes.SET_NEW_PAGE,
         btnPage: (+apiDataState.pages.page + 1).toString(),
       });
     }
