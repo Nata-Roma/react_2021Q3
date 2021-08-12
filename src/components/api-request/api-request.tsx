@@ -1,28 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import configSorting, {
-  apiKey,
-  basicUrl,
   configPageInput,
   initRequestParam,
 } from '../../utilities/config';
-import {
-  IApiRequest,
-  IApiResponse,
-  IRequestParam,
-} from '../../utilities/interfaces';
+import { IRequestParam } from '../../utilities/interfaces';
 import Button from '../button/button';
 import PagesBlock from '../pagesBlock/pages-block';
 import Search from '../search/search';
 import SortingBlock from '../sorting/sorting';
-import { apiLoadingAction, apiRequestAction } from '../store/apiData-reducer';
-// import { NewsContext } from '../upperElement';
 import { AppState } from '../store/appState';
+import { apiLoadingAction } from '../store/reducers/loading-reducer';
 import './api-request.css';
+import requestApi from '../store/request-data-api';
 
-const ApiRequest = (props: IApiRequest): JSX.Element => {
-  const { onErrorApi } = props;
-  // const { apiDataState, dispatch } = useContext(NewsContext);
+const ApiRequest = (): JSX.Element => {
   const apiDataState = useSelector((state: AppState) => state.apiData);
   const dispatch = useDispatch();
 
@@ -61,48 +53,7 @@ const ApiRequest = (props: IApiRequest): JSX.Element => {
   useEffect(() => {
     if (isSubmit) {
       dispatch(apiLoadingAction(true));
-      // onLoadingApi(true);
-      let url = '';
-      for (const key in requestParam) {
-        if (requestParam[key]) {
-          if (key === 'q') {
-            url = `q=${encodeURIComponent(requestParam.q)}`;
-          } else if (key !== 'pages') {
-            url = `${url}&${key}=${requestParam[key]}`;
-          }
-        }
-      }
-      const getData = async () => {
-        const res = await fetch(`${basicUrl}?${url}&${apiKey}`);
-        const responseData: IApiResponse = await res.json();
-        if (responseData.status === 'ok') {
-          const pages = {
-            pages: Math.ceil(
-              responseData.totalResults / +requestParam.pageSize,
-            ).toString(),
-            pageSize: requestParam.pageSize,
-            page: requestParam.page,
-          };
-          const arr = responseData.articles.map((article) => {
-            const arrItem = article;
-            arrItem.source.id = (Math.random() * 10).toString();
-            return arrItem;
-          });
-          const newApiResponse = responseData;
-          newApiResponse.articles = arr;
-          dispatch(apiRequestAction(newApiResponse, pages));
-          setRequestParam((prevState) => ({
-            ...prevState,
-            pages: Math.ceil(
-              responseData.totalResults / +requestParam.pageSize,
-            ).toString(),
-          }));
-        } else if (responseData.status === 'error') {
-          onErrorApi(true);
-        }
-        dispatch(apiLoadingAction(false));
-      };
-      getData();
+      dispatch(requestApi(requestParam));
       setSubmit(false);
     }
   }, [isSubmit]);

@@ -5,24 +5,24 @@ import Popup from '../../utilities/popup/popup';
 import ApiRequest from '../api-request/api-request';
 import Article from '../article/article';
 import PaginationPage from '../pagination/pagination-page';
-import { pageChangeAction } from '../store/apiData-reducer';
+import { pageChangeAction } from '../store/reducers/apiData-reducer';
 import { AppState } from '../store/appState';
-// import { NewsContext } from '../upperElement';
 import './homePage.css';
+import { apiErrorAction } from '../store/reducers/error-reducer';
 
 const HomePage = (): JSX.Element => {
-  // const { apiDataState, dispatch } = useContext(NewsContext);
   const dispatch = useDispatch();
   const apiDataState = useSelector((state: AppState) => state.apiData);
+  const loadingState = useSelector((state: AppState) => state.isLoading);
+  const errorState = useSelector((state: AppState) => state.isError);
   const [btnDisabled, setBtnDisabled] = useState<IPaginationButtonState>({
     Left: true,
     Right: true,
   });
-  const [isError, setError] = useState(false);
   const homeRef = useRef(null);
 
   useEffect(() => {
-    if (!apiDataState.isLoading) {
+    if (!loadingState.isLoading) {
       if (+apiDataState.pages.pages <= 1) {
         setBtnDisabled((btnState) => ({ ...btnState, Right: true }));
         setBtnDisabled((btnState) => ({ ...btnState, Left: true }));
@@ -49,11 +49,7 @@ const HomePage = (): JSX.Element => {
         setBtnDisabled((btnState) => ({ ...btnState, Right: true }));
       }
     }
-  }, [apiDataState.pages]);
-
-  const onErrorApi = (errorApi: boolean) => {
-    setError(errorApi);
-  };
+  }, [apiDataState.pages, loadingState.isLoading]);
 
   const articles = !apiDataState.apiState ? (
     <div>
@@ -96,7 +92,7 @@ const HomePage = (): JSX.Element => {
   };
 
   const onErrorClick = () => {
-    setError(false);
+    dispatch(apiErrorAction(false));
   };
 
   useEffect(() => {
@@ -107,13 +103,13 @@ const HomePage = (): JSX.Element => {
 
   return (
     <div className="home_wrapper" ref={homeRef}>
-      <ApiRequest onErrorApi={onErrorApi} />
+      <ApiRequest />
       <PaginationPage
         articles={articles}
         onButtonClick={onButtonClick}
         btnDisabled={btnDisabled}
-        isLoading={apiDataState.isLoading}
-        isError={isError}
+        isLoading={loadingState.isLoading}
+        isError={errorState.isError}
         onErrorClick={onErrorClick}
       />
     </div>

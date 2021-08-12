@@ -3,7 +3,7 @@ import { IApiResponse, IPages } from '../../utilities/interfaces';
 export interface IApiDataState {
   apiState: IApiResponse;
   pages: IPages;
-  isLoading: boolean;
+  // isLoading: boolean;
 }
 
 export interface IAction {
@@ -32,10 +32,16 @@ export interface IApiLoadingAction {
   payload: boolean;
 }
 
+export interface IApiErrorAction {
+  type: string;
+  payload: boolean;
+}
+
 export const actionTypes = {
   GET_API_DATA: 'GET_API_DATA',
   SET_NEW_PAGE: 'SET_NEW_PAGE',
   SET_LOADING: 'SET_LOADING',
+  SET_ERROR: 'SET_ERROR',
 };
 
 export const initReducerState = {
@@ -45,10 +51,22 @@ export const initReducerState = {
     pageSize: '1',
     page: '1',
   },
+  // isLoading: false,
+};
+
+export interface IInitLoadingReducerState {
+  isLoading: boolean;
+}
+export const initLoadingReducerState = {
   isLoading: false,
 };
 
-export type ActionReducer =
-  | IApiRequestAction
-  | IPageChangeAction
-  | IApiLoadingAction;
+export interface IInitErrorReducerState {
+  isError: boolean;
+}
+export const initErrorReducerState = {
+  isError: false,
+};
+
+export type ActionReducer = IApiRequestAction | IPageChangeAction;
+// | IApiLoadingAction;
