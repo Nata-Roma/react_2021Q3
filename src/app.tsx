@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
-import configureStore from './components/store/configureStore';
+import store from './components/store/configureStore';
 import UpperElement from './components/upperElement';
 import './app.css';
 import './styles.css';
@@ -12,7 +12,7 @@ const App = (): JSX.Element => (
   //     <UpperElement />
   //   </Route>
   // </Router>
-  <Provider store={configureStore()}>
+  <Provider store={store()}>
     <HashRouter>
       <UpperElement />
     </HashRouter>

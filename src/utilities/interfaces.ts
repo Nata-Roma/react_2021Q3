@@ -95,7 +95,6 @@ export interface IPaginationPage {
 }
 
 export interface IApiRequest {
-  onLoadingApi: (loading: boolean) => void;
   onErrorApi: (errorApi: boolean) => void;
 }
 

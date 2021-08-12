@@ -5,7 +5,7 @@ import Popup from '../../utilities/popup/popup';
 import ApiRequest from '../api-request/api-request';
 import Article from '../article/article';
 import PaginationPage from '../pagination/pagination-page';
-import { actionTypes } from '../store/apiData-reducer';
+import { pageChangeAction } from '../store/apiData-reducer';
 import { AppState } from '../store/appState';
 // import { NewsContext } from '../upperElement';
 import './homePage.css';
@@ -18,12 +18,11 @@ const HomePage = (): JSX.Element => {
     Left: true,
     Right: true,
   });
-  const [isLoading, setLoading] = useState(false);
   const [isError, setError] = useState(false);
   const homeRef = useRef(null);
 
   useEffect(() => {
-    if (!isLoading) {
+    if (!apiDataState.isLoading) {
       if (+apiDataState.pages.pages <= 1) {
         setBtnDisabled((btnState) => ({ ...btnState, Right: true }));
         setBtnDisabled((btnState) => ({ ...btnState, Left: true }));
@@ -50,22 +49,18 @@ const HomePage = (): JSX.Element => {
         setBtnDisabled((btnState) => ({ ...btnState, Right: true }));
       }
     }
-  }, [isLoading]);
-
-  const onLoadingApi = (loading: boolean) => {
-    setLoading(loading);
-  };
+  }, [apiDataState.pages]);
 
   const onErrorApi = (errorApi: boolean) => {
     setError(errorApi);
   };
 
-  const articles = !apiDataState.state ? (
+  const articles = !apiDataState.apiState ? (
     <div>
       <Popup message={['No Content']} isDisabled={false} isShowButton={false} />
     </div>
   ) : (
-    apiDataState.state.articles.map((article: IPost) => {
+    apiDataState.apiState.articles.map((article: IPost) => {
       const contentIndex = article.content.indexOf('[');
       let articleNew = { ...article };
       if (contentIndex) {
@@ -88,10 +83,7 @@ const HomePage = (): JSX.Element => {
       } else {
         setBtnDisabled((btnState) => ({ ...btnState, Left: true }));
       }
-      dispatch({
-        type: actionTypes.SET_NEW_PAGE,
-        btnPage: (+apiDataState.pages.page - 1).toString(),
-      });
+      dispatch(pageChangeAction('-1'));
     } else if (direction === 'Right') {
       setBtnDisabled((btnState) => ({ ...btnState, Left: false }));
       if (+apiDataState.pages.pages < +apiDataState.pages.page + 2) {
@@ -99,16 +91,12 @@ const HomePage = (): JSX.Element => {
       } else {
         setBtnDisabled((btnState) => ({ ...btnState, Right: false }));
       }
-      dispatch({
-        type: actionTypes.SET_NEW_PAGE,
-        btnPage: (+apiDataState.pages.page + 1).toString(),
-      });
+      dispatch(pageChangeAction('1'));
     }
   };
 
   const onErrorClick = () => {
     setError(false);
-    setLoading(false);
   };
 
   useEffect(() => {
@@ -119,12 +107,12 @@ const HomePage = (): JSX.Element => {
 
   return (
     <div className="home_wrapper" ref={homeRef}>
-      <ApiRequest onLoadingApi={onLoadingApi} onErrorApi={onErrorApi} />
+      <ApiRequest onErrorApi={onErrorApi} />
       <PaginationPage
         articles={articles}
         onButtonClick={onButtonClick}
         btnDisabled={btnDisabled}
-        isLoading={isLoading}
+        isLoading={apiDataState.isLoading}
         isError={isError}
         onErrorClick={onErrorClick}
       />

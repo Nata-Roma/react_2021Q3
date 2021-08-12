@@ -1,40 +1,55 @@
 import { IApiResponse, IPages } from '../../utilities/interfaces';
+import {
+  ActionReducer,
+  actionTypes,
+  IApiDataResponse,
+  IApiDataState,
+  IApiLoadingAction,
+  IApiRequestAction,
+  initReducerState,
+  IPageChangeAction,
+} from './store-utils';
 
-export const actionTypes = {
-  GET_API_DATA: 'GET_API_DATA',
-  SET_NEW_PAGE: 'SET_NEW_PAGE',
-};
+export const apiRequestAction = (
+  newApiResponse: IApiResponse,
+  pages: IPages,
+): IApiRequestAction => ({
+  type: actionTypes.GET_API_DATA,
+  payload: { apiState: newApiResponse, pages },
+});
 
-export interface IApiDataState {
-  state: IApiResponse;
-  pages: IPages;
-}
+export const pageChangeAction = (btnPage: string): IPageChangeAction => ({
+  type: actionTypes.SET_NEW_PAGE,
+  payload: btnPage,
+});
 
-export interface IActionReducer {
-  type: string;
-  payload?: IApiDataState;
-  btnPage?: string;
-}
-
-export const initReducerState = {
-  state: null,
-  pages: {
-    pages: '1',
-    pageSize: '1',
-    page: '1',
-  },
-};
+export const apiLoadingAction = (isLoading: boolean): IApiLoadingAction => ({
+  type: actionTypes.SET_LOADING,
+  payload: isLoading,
+});
 
 const ApiDataReducer = (
   state: IApiDataState = initReducerState,
-  action: IActionReducer,
+  action: ActionReducer,
 ): IApiDataState => {
   switch (action.type) {
-    case actionTypes.GET_API_DATA:
-      return action.payload;
+    case actionTypes.GET_API_DATA: {
+      const newState = {
+        ...(action.payload as IApiDataResponse),
+        isLoading: state.isLoading,
+      };
+      return newState;
+    }
     case actionTypes.SET_NEW_PAGE: {
-      const newState = state;
-      newState.pages.page = action.btnPage;
+      const newState = { ...state, pages: { ...state.pages } };
+      newState.pages.page = (
+        +newState.pages.page + +(action.payload as string)
+      ).toString();
+      return newState;
+    }
+    case actionTypes.SET_LOADING: {
+      const newState = { ...state, pages: { ...state.pages } };
+      newState.isLoading = action.payload as boolean;
       return newState;
     }
     default:

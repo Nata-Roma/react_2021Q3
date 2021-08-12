@@ -15,13 +15,13 @@ import Button from '../button/button';
 import PagesBlock from '../pagesBlock/pages-block';
 import Search from '../search/search';
 import SortingBlock from '../sorting/sorting';
-import { actionTypes } from '../store/apiData-reducer';
+import { apiLoadingAction, apiRequestAction } from '../store/apiData-reducer';
 // import { NewsContext } from '../upperElement';
 import { AppState } from '../store/appState';
 import './api-request.css';
 
 const ApiRequest = (props: IApiRequest): JSX.Element => {
-  const { onLoadingApi, onErrorApi } = props;
+  const { onErrorApi } = props;
   // const { apiDataState, dispatch } = useContext(NewsContext);
   const apiDataState = useSelector((state: AppState) => state.apiData);
   const dispatch = useDispatch();
@@ -60,7 +60,8 @@ const ApiRequest = (props: IApiRequest): JSX.Element => {
 
   useEffect(() => {
     if (isSubmit) {
-      onLoadingApi(true);
+      dispatch(apiLoadingAction(true));
+      // onLoadingApi(true);
       let url = '';
       for (const key in requestParam) {
         if (requestParam[key]) {
@@ -89,10 +90,7 @@ const ApiRequest = (props: IApiRequest): JSX.Element => {
           });
           const newApiResponse = responseData;
           newApiResponse.articles = arr;
-          dispatch({
-            type: actionTypes.GET_API_DATA,
-            payload: { state: newApiResponse, pages },
-          });
+          dispatch(apiRequestAction(newApiResponse, pages));
           setRequestParam((prevState) => ({
             ...prevState,
             pages: Math.ceil(
@@ -102,7 +100,7 @@ const ApiRequest = (props: IApiRequest): JSX.Element => {
         } else if (responseData.status === 'error') {
           onErrorApi(true);
         }
-        onLoadingApi(false);
+        dispatch(apiLoadingAction(false));
       };
       getData();
       setSubmit(false);
