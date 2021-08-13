@@ -10,12 +10,12 @@ import PagesBlock from '../pagesBlock/pages-block';
 import Search from '../search/search';
 import SortingBlock from '../sorting/sorting';
 import { AppState } from '../store/appState';
-import { apiLoadingAction } from '../store/reducers/loading-reducer';
 import './api-request.css';
 import requestApi from '../store/request-data-api';
+import { loadingActions } from '../store/slices/loading-slice';
 
 const ApiRequest = (): JSX.Element => {
-  const apiDataState = useSelector((state: AppState) => state.apiData);
+  const apiDataState = useSelector((state: AppState) => state.apiData.pages);
   const dispatch = useDispatch();
 
   const [isSubmit, setSubmit] = useState(false);
@@ -52,7 +52,7 @@ const ApiRequest = (): JSX.Element => {
 
   useEffect(() => {
     if (isSubmit) {
-      dispatch(apiLoadingAction(true));
+      dispatch(loadingActions.isLoading(true));
       dispatch(requestApi(requestParam));
       setSubmit(false);
     }
@@ -61,10 +61,10 @@ const ApiRequest = (): JSX.Element => {
   useEffect(() => {
     setRequestParam((prevState) => ({
       ...prevState,
-      page: apiDataState.pages.page,
+      page: apiDataState.page,
     }));
     if (!isDisable) setSubmit(true);
-  }, [apiDataState.pages.page]);
+  }, [apiDataState.page]);
 
   return (
     <>

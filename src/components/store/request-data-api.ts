@@ -1,9 +1,9 @@
 import { Dispatch } from 'redux';
 import { apiKey, basicUrl } from '../../utilities/config';
 import { IApiResponse, IRequestParam } from '../../utilities/interfaces';
-import { apiRequestAction } from './reducers/apiData-reducer';
-import { apiErrorAction } from './reducers/error-reducer';
-import { apiLoadingAction } from './reducers/loading-reducer';
+import { apiDataActions } from './slices/apiData-slice';
+import { errorActions } from './slices/error-slice';
+import { loadingActions } from './slices/loading-slice';
 import {
   IApiErrorAction,
   IApiLoadingAction,
@@ -42,11 +42,11 @@ const requestApi =
       });
       const newApiResponse = responseData;
       newApiResponse.articles = arr;
-      dispatch(apiRequestAction(newApiResponse, pages));
+      dispatch(apiDataActions.getApiData({ apiState: newApiResponse, pages }));
     } else if (responseData.status === 'error') {
-      dispatch(apiErrorAction(true));
+      dispatch(errorActions.isError(true));
     }
-    dispatch(apiLoadingAction(false));
+    dispatch(loadingActions.isLoading(false));
   };
 
 export default requestApi;

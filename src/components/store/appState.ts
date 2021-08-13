@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import ApiDataReducer from './reducers/apiData-reducer';
-import ErrorReducer from './reducers/error-reducer';
-import LoadingReducer from './reducers/loading-reducer';
+import { ApiDataReducer } from './slices/apiData-slice';
+import { ErrorReducer } from './slices/error-slice';
+import { LoadingReducer } from './slices/loading-slice';
 
 export const rootReducer = combineReducers({
   apiData: ApiDataReducer,

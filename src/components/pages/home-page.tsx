@@ -5,14 +5,15 @@ import Popup from '../../utilities/popup/popup';
 import ApiRequest from '../api-request/api-request';
 import Article from '../article/article';
 import PaginationPage from '../pagination/pagination-page';
-import { pageChangeAction } from '../store/reducers/apiData-reducer';
 import { AppState } from '../store/appState';
 import './homePage.css';
-import { apiErrorAction } from '../store/reducers/error-reducer';
+import { errorActions } from '../store/slices/error-slice';
+import { apiDataActions } from '../store/slices/apiData-slice';
 
 const HomePage = (): JSX.Element => {
   const dispatch = useDispatch();
-  const apiDataState = useSelector((state: AppState) => state.apiData);
+  const apiDataState = useSelector((state: AppState) => state.apiData.apiState);
+  const pagesState = useSelector((state: AppState) => state.apiData.pages);
   const loadingState = useSelector((state: AppState) => state.isLoading);
   const errorState = useSelector((state: AppState) => state.isError);
   const [btnDisabled, setBtnDisabled] = useState<IPaginationButtonState>({
@@ -23,40 +24,34 @@ const HomePage = (): JSX.Element => {
 
   useEffect(() => {
     if (!loadingState.isLoading) {
-      if (+apiDataState.pages.pages <= 1) {
+      if (+pagesState.pages <= 1) {
         setBtnDisabled((btnState) => ({ ...btnState, Right: true }));
         setBtnDisabled((btnState) => ({ ...btnState, Left: true }));
       }
 
-      if (+apiDataState.pages.page <= 1) {
+      if (+pagesState.page <= 1) {
         setBtnDisabled((btnState) => ({ ...btnState, Left: true }));
       }
 
-      if (+apiDataState.pages.page >= 2) {
+      if (+pagesState.page >= 2) {
         setBtnDisabled((btnState) => ({ ...btnState, Left: false }));
       }
 
-      if (
-        +apiDataState.pages.pages > 1 &&
-        +apiDataState.pages.page < +apiDataState.pages.pages
-      ) {
+      if (+pagesState.pages > 1 && +pagesState.page < +pagesState.pages) {
         setBtnDisabled((btnState) => ({ ...btnState, Right: false }));
       }
-      if (
-        +apiDataState.pages.pages > 1 &&
-        +apiDataState.pages.page >= +apiDataState.pages.pages
-      ) {
+      if (+pagesState.pages > 1 && +pagesState.page >= +pagesState.pages) {
         setBtnDisabled((btnState) => ({ ...btnState, Right: true }));
       }
     }
-  }, [apiDataState.pages, loadingState.isLoading]);
+  }, [pagesState, loadingState.isLoading]);
 
-  const articles = !apiDataState.apiState ? (
+  const articles = !apiDataState ? (
     <div>
       <Popup message={['No Content']} isDisabled={false} isShowButton={false} />
     </div>
   ) : (
-    apiDataState.apiState.articles.map((article: IPost) => {
+    apiDataState.articles.map((article: IPost) => {
       const contentIndex = article.content.indexOf('[');
       let articleNew = { ...article };
       if (contentIndex) {
@@ -71,28 +66,28 @@ const HomePage = (): JSX.Element => {
 
   const onButtonClick = (direction: string) => {
     if (direction === 'Left') {
-      if (+apiDataState.pages.pages >= +apiDataState.pages.page) {
+      if (+pagesState.pages >= +pagesState.page) {
         setBtnDisabled((btnState) => ({ ...btnState, Right: false }));
       }
-      if (+apiDataState.pages.page > 2) {
+      if (+pagesState.page > 2) {
         setBtnDisabled((btnState) => ({ ...btnState, Left: false }));
       } else {
         setBtnDisabled((btnState) => ({ ...btnState, Left: true }));
       }
-      dispatch(pageChangeAction('-1'));
+      dispatch(apiDataActions.setNewPage('-1'));
     } else if (direction === 'Right') {
       setBtnDisabled((btnState) => ({ ...btnState, Left: false }));
-      if (+apiDataState.pages.pages < +apiDataState.pages.page + 2) {
+      if (+pagesState.pages < +pagesState.page + 2) {
         setBtnDisabled((btnState) => ({ ...btnState, Right: true }));
       } else {
         setBtnDisabled((btnState) => ({ ...btnState, Right: false }));
       }
-      dispatch(pageChangeAction('1'));
+      dispatch(apiDataActions.setNewPage('1'));
     }
   };
 
   const onErrorClick = () => {
-    dispatch(apiErrorAction(false));
+    dispatch(errorActions.isError(false));
   };
 
   useEffect(() => {
