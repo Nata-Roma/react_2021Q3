@@ -9,6 +9,7 @@ const onMoreClick = (url: string) => {
   a.href = url;
   a.target = '_blank';
   a.rel = 'noreferrer';
+  a.setAttribute('data-testid', 'createMore')
   document.body.appendChild(a);
   a.click();
   a.remove();
@@ -68,6 +69,7 @@ const Article = (props: IArticle): JSX.Element => {
               className="article_link"
               onClick={() => onMoreClick(url)}
               type="button"
+              data-testid="articleMore"
             >
               Read more...
             </button>

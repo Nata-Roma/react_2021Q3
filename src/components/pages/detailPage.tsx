@@ -62,7 +62,7 @@ const DetailPage = (): JSX.Element => {
   }, []);
 
   return (
-    <div className="detail_outer" ref={detailsRef}>
+    <div className="detail_outer" ref={detailsRef} data-testid="detailsPage">
       {article}
     </div>
   );

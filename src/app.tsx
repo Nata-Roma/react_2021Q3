@@ -6,8 +6,6 @@ import UpperElement from './components/upperElement';
 import './app.css';
 import './styles.css';
 
-jest.mock("./Home", () => ({ Home: () => <div>Home</div> }))
-
 const App = (): JSX.Element => (
   <Provider store={store()}>
    {/* <Router>
