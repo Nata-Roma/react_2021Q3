@@ -31,4 +31,13 @@ describe('Article', () => {
     expect(btn).toBeInTheDocument();
     fireEvent.click(btn);
   });
+  it('renders image', () => {
+    post.urlToImage = null;
+    const { queryByTestId } = renderWithRouter(() => (
+      <Article showMore post={post} />
+    ));
+    const noImage = queryByTestId('articleNoImage');
+    expect(noImage).toBeInTheDocument();
+    
+  })
 });

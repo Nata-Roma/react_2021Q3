@@ -11,6 +11,7 @@ const Search = (props: ISearch): JSX.Element => {
       <div
         className="search_icon"
         style={{ backgroundImage: `url(${searchImg})` }}
+        data-testid='searchIcon'
       />
       <input
         className="search-input"
@@ -20,6 +21,7 @@ const Search = (props: ISearch): JSX.Element => {
           onSearch(e.currentTarget.value)
         }
         value={value}
+        data-testid='searchInput'
       />
     </div>
   );

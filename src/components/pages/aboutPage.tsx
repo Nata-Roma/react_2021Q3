@@ -11,8 +11,8 @@ const AboutPage = (): JSX.Element => {
   }, []);
 
   return (
-    <div className="about_wrapper" ref={aboutRef}>
-      <div className="about_message" data-testid="aboutPage">About Page</div>
+    <div className="about_wrapper" ref={aboutRef} data-testid="aboutPage" >
+      <div className="about_message">About Page</div>
     </div>
   );
 };

@@ -4,7 +4,7 @@ import { IPageInput } from '../../utilities/interfaces';
 const PagesInput = (props: IPageInput): JSX.Element => {
   const { config, onInputChoice, value } = props;
   return (
-    <div className="pages_input_wrapper">
+    <div className="pages_input_wrapper" data-testid="pagesInputContainer">
       <label htmlFor="config.name" className="pages_input_label">
         {config.label}
       </label>
@@ -19,6 +19,7 @@ const PagesInput = (props: IPageInput): JSX.Element => {
         onInput={(e: React.FormEvent<HTMLInputElement>) =>
           onInputChoice(e.currentTarget.value, config.name)
         }
+        data-testid="pagesInput"
       />
     </div>
   );

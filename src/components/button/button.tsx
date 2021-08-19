@@ -11,6 +11,7 @@ const Button = (props: IButton): JSX.Element => {
         className={disabled ? `${styleName} ${styleNameDisabled}` : styleName}
         onClick={() => onButtonClick(content)}
         disabled={disabled}
+        data-testid="buttonLeft"
       >
         {content}
       </button>
