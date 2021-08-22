@@ -9,13 +9,14 @@ const PaginationControl = (props: IPaginationControl): JSX.Element => {
   const apiDataState = useSelector((state: AppState) => state.apiData);
 
   return (
-    <div className="pagination_control">
+    <div className="pagination_control" data-testid="paginationControl">
       <Button
         styleName="pagination_button"
         styleNameDisabled="pagination_button_disabled"
         content="Left"
         onButtonClick={onButtonClick}
         disabled={btnDisabled.Left}
+        data-testid="paginationLeft"
       />
       <div className="pagination_page">
         {`Page: ${apiDataState.pages.page} (${apiDataState.pages.pages})`}
@@ -26,6 +27,7 @@ const PaginationControl = (props: IPaginationControl): JSX.Element => {
         content="Right"
         onButtonClick={onButtonClick}
         disabled={btnDisabled.Right}
+        data-testid="paginationRight"
       />
     </div>
   );

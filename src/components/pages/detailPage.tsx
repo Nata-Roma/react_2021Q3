@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { IPost } from '../../utilities/interfaces';
 import Article from '../article/article';
@@ -17,6 +17,7 @@ export interface IDetailPageParams {
 }
 
 const DetailPage = (): JSX.Element => {
+  const [ pageClass, setPageClass ] = useState('detail_outer');
   const {
     id,
     title,
@@ -43,27 +44,15 @@ const DetailPage = (): JSX.Element => {
     publishedAt: decodeURIComponent(publishedAt),
   };
 
-  const detailsRef = useRef(null);
-
-  const article = !pageData ? (
-    <div className="detail_wrapper">
-      <div className="detail_message">No Data</div>
-    </div>
-  ) : (
-    <Article post={pageData} showMore />
-  );
-
   useEffect(() => {
     setTimeout(() => {
-      if (detailsRef.current) {
-        detailsRef.current.classList.add('detail_enter');
-      }
+      setPageClass('detail_outer detail_enter');
     }, 300);
   }, []);
 
   return (
-    <div className="detail_outer" ref={detailsRef}>
-      {article}
+    <div className={pageClass} data-testid="detailsPage">
+      <Article post={pageData} showMore />
     </div>
   );
 };
