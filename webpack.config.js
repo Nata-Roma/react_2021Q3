@@ -34,17 +34,7 @@ const config = {
         },
       ],
     }),
-    new ESLintPlugin ({
-      context: './src',
-      extensions: [".tsx", ".ts", ".js"],
-      fix: false,
-      failOnError: true,
-      // context: __dirname,
-      // eslintPath: `${__dirname}/node_modules/.bin/eslint`,
-      // extensions: ["ts", "tsx", ".js"],
-      // files: "./src/**",
-      // exclude: "node_modules",
-    }),
+    
 
     // Add your plugins here
     // Learn more about plugins from https://webpack.js.org/configuration/plugins/
@@ -83,6 +73,12 @@ module.exports = () => {
     config.mode = "production";
 
     config.plugins.push(new MiniCssExtractPlugin());
+    config.plugins.push(new ESLintPlugin ({
+      context: './src',
+      extensions: [".tsx", ".ts", ".js"],
+      fix: false,
+      failOnError: true,
+    }),)
   } else {
     config.mode = "development";
   }

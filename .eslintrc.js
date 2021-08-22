@@ -33,6 +33,8 @@ module.exports = {
     "react/jsx-curly-newline": "off",
     "operator-linebreak": "off",
     "function-paren-newline": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "no-restricted-syntax": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
     "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
     "import/extensions": [
