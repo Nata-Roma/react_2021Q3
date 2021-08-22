@@ -87,7 +87,6 @@ export interface IPageBlock {
 
 export interface IPaginationPage {
   articles: JSX.Element | Array<JSX.Element>;
-  pages: IPages;
   onButtonClick: (page: string) => void;
   btnDisabled: IPaginationButtonState;
   isLoading: boolean;
@@ -96,8 +95,6 @@ export interface IPaginationPage {
 }
 
 export interface IApiRequest {
-  requestApi: (responseData: IApiResponse, pages: IPages) => void;
-  requestPage: string;
   onLoadingApi: (loading: boolean) => void;
   onErrorApi: (errorApi: boolean) => void;
 }
@@ -110,7 +107,6 @@ export interface IPopup {
 }
 
 export interface IPaginationControl {
-  pages: IPages;
   onButtonClick: (param: string) => void;
   btnDisabled: { Left: boolean; Right: boolean };
 }
@@ -118,4 +114,9 @@ export interface IPaginationControl {
 export interface ISearch {
   onSearch: (searchKey: string) => void;
   value: string;
+}
+
+export interface IArticle {
+  showMore: boolean;
+  post: IPost;
 }

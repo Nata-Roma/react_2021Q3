@@ -8,7 +8,6 @@ import './pagination.css';
 const PaginationPage = (props: IPaginationPage): JSX.Element => {
   const {
     articles,
-    pages,
     onButtonClick,
     btnDisabled,
     isLoading,
@@ -19,7 +18,6 @@ const PaginationPage = (props: IPaginationPage): JSX.Element => {
   return (
     <div className="pagination_wrapper">
       <PaginationControl
-        pages={pages}
         onButtonClick={onButtonClick}
         btnDisabled={btnDisabled}
       />

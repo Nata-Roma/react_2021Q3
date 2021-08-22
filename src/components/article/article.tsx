@@ -1,10 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import { IPost } from '../../utilities/interfaces';
+import { Link } from 'react-router-dom';
+import { IArticle } from '../../utilities/interfaces';
 import './article.css';
 import noImage from '../../assets/no_image.png';
 
-const Article = (props: IPost): JSX.Element => {
-  const { author, title, description, url, urlToImage, content } = props;
+const onMoreClick = (url: string) => {
+  const a = document.createElement('a');
+  a.href = url;
+  a.target = '_blank';
+  a.rel = 'noreferrer';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+};
+
+const Article = (props: IArticle): JSX.Element => {
+  const { post, showMore } = props;
+  const {
+    author,
+    title,
+    description,
+    url,
+    urlToImage,
+    content,
+    source,
+    publishedAt,
+  } = post;
   const [isFailed, setFailed] = useState(false);
 
   useEffect(() => {
@@ -22,9 +43,16 @@ const Article = (props: IPost): JSX.Element => {
     />
   );
   const imageDefault = <img className="article_image" src={noImage} alt="" />;
+  const pageAddress = `/details/${
+    source.id
+  }/${encodeURIComponent(title)}/${encodeURIComponent(author)}/${encodeURIComponent(description)}/${encodeURIComponent(
+    url,
+  )}/${encodeURIComponent(urlToImage)}/${encodeURIComponent(content)}/${encodeURIComponent(publishedAt)}/${
+    encodeURIComponent(source.name)
+  }`;
 
   return (
-    <div className="article_wrapper">
+    <Link className="article_wrapper" to={pageAddress}>
       <div className="article_title">{title}</div>
       <div className="article_author">{`By: ${author}`}</div>
       <div className="article_img_desc">
@@ -33,17 +61,18 @@ const Article = (props: IPost): JSX.Element => {
         <div className="article_text">
           <div className="article_description">{description}</div>
           <div className="article_content">{content}</div>
-          <a
-            className="article_link"
-            href={url}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Read more...
-          </a>
+          {showMore && (
+            <button
+              className="article_link"
+              onClick={() => onMoreClick(url)}
+              type="button"
+            >
+              Read more...
+            </button>
+          )}
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 export default Article;

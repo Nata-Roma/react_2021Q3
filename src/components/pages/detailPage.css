@@ -1,0 +1,21 @@
+.detail_wrapper {
+  width:100%;
+  height: calc(100vh - 40px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.detail_message {
+  font-size: 40px;
+  margin-bottom: 40px;
+}
+
+.detail_outer {
+  opacity: 0;
+}
+
+.detail_enter {
+  opacity: 1;
+}
