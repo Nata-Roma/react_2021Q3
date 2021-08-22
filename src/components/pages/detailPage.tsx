@@ -50,19 +50,22 @@ const DetailPage = (): JSX.Element => {
       <div className="detail_message">No Data</div>
     </div>
   ) : (
-      <Article post={pageData} showMore />
+    <Article post={pageData} showMore />
   );
 
   useEffect(() => {
     setTimeout(() => {
-      if(detailsRef.current) {
+      if (detailsRef.current) {
         detailsRef.current.classList.add('detail_enter');
       }
-      
     }, 300);
   }, []);
 
-  return <div className="detail_outer" ref={detailsRef}>{article}</div>;
+  return (
+    <div className="detail_outer" ref={detailsRef}>
+      {article}
+    </div>
+  );
 };
 
 export default DetailPage;
