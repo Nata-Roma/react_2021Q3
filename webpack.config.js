@@ -11,7 +11,7 @@ const stylesHandler = isProduction
   : "style-loader";
 
 const config = {
-  entry: "./src/index.ts",
+  entry: "./src/client.tsx",
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, './dist'),

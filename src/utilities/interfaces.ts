@@ -82,7 +82,7 @@ export interface IPages {
 export interface IPageBlock {
   config: Array<IInputPageConfig>;
   onInputChoice: (value: string, name: string) => void;
-  pages: IRequestParam;
+  pages: IPages;
 }
 
 export interface IPaginationPage {

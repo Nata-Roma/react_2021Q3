@@ -13,6 +13,7 @@ import { AppState } from '../store/appState';
 import './api-request.css';
 import requestApi from '../store/request-data-api';
 import { loadingActions } from '../store/slices/loading-slice';
+import { apiDataActions } from '../store/slices/apiData-slice';
 
 const ApiRequest = (): JSX.Element => {
   const apiDataState = useSelector((state: AppState) => state.apiData.pages);
@@ -48,6 +49,7 @@ const ApiRequest = (): JSX.Element => {
 
   const onInputChoice = (value: string, name: string) => {
     setRequestParam((prevState) => ({ ...prevState, [name]: value }));
+    dispatch(apiDataActions.setArticlesPerPage({value, name}));
   };
 
   useEffect(() => {
@@ -91,7 +93,7 @@ const ApiRequest = (): JSX.Element => {
         <PagesBlock
           config={configPageInput}
           onInputChoice={onInputChoice}
-          pages={requestParam}
+          pages={apiDataState}
         />
       </div>
     </>

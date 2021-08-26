@@ -42,6 +42,7 @@ const Article = (props: IArticle): JSX.Element => {
       alt=""
     />
   );
+  // const imageDefault = <img className="article_image" src="./public/no_image.png" alt="" />;
   const imageDefault = <img className="article_image" src={noImage} alt="" />;
   const pageAddress = `/details/${source.id}/${encodeURIComponent(
     title,

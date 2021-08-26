@@ -10,6 +10,7 @@ const Search = (props: ISearch): JSX.Element => {
     <div className="search_container">
       <div
         className="search_icon"
+        // style={{ backgroundImage: `url("./public/search.png")` }}
         style={{ backgroundImage: `url(${searchImg})` }}
       />
       <input

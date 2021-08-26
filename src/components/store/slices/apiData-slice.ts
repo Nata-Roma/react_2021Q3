@@ -13,6 +13,9 @@ const apiDataSlice = createSlice({
     setNewPage(state, action: PayloadAction<string>) {
       state.pages.page = (+state.pages.page + +action.payload).toString();
     },
+    setArticlesPerPage(state, action: PayloadAction<{value: string, name: string}>) {
+      state.pages[action.payload.name] = action.payload.value;
+    },
   },
 });
 
