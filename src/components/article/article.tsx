@@ -42,14 +42,17 @@ const Article = (props: IArticle): JSX.Element => {
       alt=""
     />
   );
+  // const imageDefault = <img className="article_image" src="./public/no_image.png" alt="" />;
   const imageDefault = <img className="article_image" src={noImage} alt="" />;
-  const pageAddress = `/details/${
-    source.id
-  }/${encodeURIComponent(title)}/${encodeURIComponent(author)}/${encodeURIComponent(description)}/${encodeURIComponent(
-    url,
-  )}/${encodeURIComponent(urlToImage)}/${encodeURIComponent(content)}/${encodeURIComponent(publishedAt)}/${
-    encodeURIComponent(source.name)
-  }`;
+  const pageAddress = `/details/${source.id}/${encodeURIComponent(
+    title,
+  )}/${encodeURIComponent(author)}/${encodeURIComponent(
+    description,
+  )}/${encodeURIComponent(url)}/${encodeURIComponent(
+    urlToImage,
+  )}/${encodeURIComponent(content)}/${encodeURIComponent(
+    publishedAt,
+  )}/${encodeURIComponent(source.name)}`;
 
   return (
     <Link className="article_wrapper" to={pageAddress}>

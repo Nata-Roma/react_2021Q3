@@ -35,6 +35,7 @@ module.exports = {
     "function-paren-newline": "off",
     "react/jsx-one-expression-per-line": "off",
     "no-restricted-syntax": "off",
+    "indent": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
     "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
     "import/extensions": [

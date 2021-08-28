@@ -5,6 +5,7 @@ import './pages_block.css';
 
 const PagesBlock = (props: IPageBlock): JSX.Element => {
   const { config, onInputChoice, pages } = props;
+  
   return (
     <div className="pages_wrapper">
       {config.map((configInput) => (

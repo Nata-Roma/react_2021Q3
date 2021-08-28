@@ -82,7 +82,7 @@ export interface IPages {
 export interface IPageBlock {
   config: Array<IInputPageConfig>;
   onInputChoice: (value: string, name: string) => void;
-  pages: IRequestParam;
+  pages: IPages;
 }
 
 export interface IPaginationPage {
@@ -95,7 +95,6 @@ export interface IPaginationPage {
 }
 
 export interface IApiRequest {
-  onLoadingApi: (loading: boolean) => void;
   onErrorApi: (errorApi: boolean) => void;
 }
 

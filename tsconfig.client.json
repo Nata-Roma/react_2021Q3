@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "commonjs", // generate ES modules
+    "target": "es2020", // target ES5 API
+    "jsx": "react", // compile JSX to React.createElement statements for browser
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "noImplicitAny": false,
+    "esModuleInterop": true
+  }
+}
